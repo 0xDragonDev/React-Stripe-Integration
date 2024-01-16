@@ -38,7 +38,7 @@ function AddNewItem({ config }) {
 
 export default function DataTable({ config, extra = [] }) {
   const translate = useLanguage();
-  let { entity, dataTableColumns, disableAdd = false } = config;
+  let { entity, dataTableColumns, disableAdd = false, disableNewEntity = false } = config;
 
   const { DATATABLE_TITLE } = config;
 
@@ -48,6 +48,11 @@ export default function DataTable({ config, extra = [] }) {
 
   const { erpContextAction } = useErpContext();
   const { modal } = erpContextAction;
+
+  const stylesDataSource = dataSource.map((item, index) => ({
+    index: index + 1,
+    ...item,
+  }));
 
   const items = [
     {
@@ -101,50 +106,51 @@ export default function DataTable({ config, extra = [] }) {
     dispatch(erp.currentItem({ data: record }));
     navigate(`/invoice/pay/${record._id}`);
   };
-
-  dataTableColumns = [
-    ...dataTableColumns,
-    {
-      title: '',
-      key: 'action',
-      fixed: 'right',
-      render: (_, record) => (
-        <Dropdown
-          menu={{
-            items,
-            onClick: ({ key }) => {
-              switch (key) {
-                case 'read':
-                  handleRead(record);
-                  break;
-                case 'edit':
-                  handleEdit(record);
-                  break;
-                case 'download':
-                  handleDownload(record);
-                  break;
-                case 'delete':
-                  handleDelete(record);
-                  break;
-                case 'recordPayment':
-                  handleRecordPayment(record);
-                  break;
-                default:
-                  break;
-              }
-              // else if (key === '2')handleCloseTask
-            },
-          }}
-          trigger={['click']}
-        >
-          <EllipsisOutlined
-            style={{ cursor: 'pointer', fontSize: '24px' }}
-            onClick={(e) => e.preventDefault()}
-          />
-        </Dropdown>
-      ),
-    },
-  ];
+  if (!disableNewEntity) {
+    dataTableColumns = [
+      ...dataTableColumns,
+      {
+        title: '',
+        key: 'action',
+        fixed: 'right',
+        render: (_, record) => (
+          <Dropdown
+            menu={{
+              items,
+              onClick: ({ key }) => {
+                switch (key) {
+                  case 'read':
+                    handleRead(record);
+                    break;
+                  case 'edit':
+                    handleEdit(record);
+                    break;
+                  case 'download':
+                    handleDownload(record);
+                    break;
+                  case 'delete':
+                    handleDelete(record);
+                    break;
+                  case 'recordPayment':
+                    handleRecordPayment(record);
+                    break;
+                  default:
+                    break;
+                }
+                // else if (key === '2')handleCloseTask
+              },
+            }}
+            trigger={['click']}
+          >
+            <EllipsisOutlined
+              style={{ cursor: 'pointer', fontSize: '24px' }}
+              onClick={(e) => e.preventDefault()}
+            />
+          </Dropdown>
+        ),
+      },
+    ];
+  }
 
   const dispatch = useDispatch();
 
@@ -184,7 +190,7 @@ export default function DataTable({ config, extra = [] }) {
       <Table
         columns={dataTableColumns}
         rowKey={(item) => item._id}
-        dataSource={dataSource}
+        dataSource={stylesDataSource}
         pagination={pagination}
         loading={listIsLoading}
         onChange={handelDataTableLoad}
