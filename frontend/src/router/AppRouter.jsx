@@ -16,6 +16,9 @@ const InvoiceCreate = lazy(() => import('@/pages/Invoice/InvoiceCreate'));
 const InvoiceRead = lazy(() => import('@/pages/Invoice/InvoiceRead'));
 const InvoiceUpdate = lazy(() => import('@/pages/Invoice/InvoiceUpdate'));
 const InvoiceRecordPayment = lazy(() => import('@/pages/Invoice/InvoiceRecordPayment'));
+
+const Stripe = lazy(() => import('@/pages/Stripe'));
+
 const Quote = lazy(() => import('@/pages/Quote/index'));
 const QuoteCreate = lazy(() => import('@/pages/Quote/QuoteCreate'));
 const QuoteRead = lazy(() => import('@/pages/Quote/QuoteRead'));
@@ -109,6 +112,10 @@ export default function AppRouter() {
     {
       path: '/invoice/pay/:id',
       element: <InvoiceRecordPayment />,
+    },
+    {
+      path: '/stripe',
+      element: <Stripe />,
     },
     {
       path: '/quote',
