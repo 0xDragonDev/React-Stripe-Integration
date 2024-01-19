@@ -93,4 +93,11 @@ router.route('/email/list').get(hasPermission('read'), catchErrors(emailControll
 router.route('/email/listAll').get(hasPermission('read'), catchErrors(emailController.listAll));
 router.route('/email/filter').get(hasPermission('read'), catchErrors(emailController.filter));
 
+router
+  .route('/create-payment-intent')
+  .post(hasPermission(), catchErrors(settingController.getStripeSecretKey));
+router
+  .route('/config')
+  .get(hasPermission(), catchErrors(settingController.getStripePublishableKey));
+
 module.exports = router;

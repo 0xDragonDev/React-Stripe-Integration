@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons';
 import { Dropdown, Table, Button } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
+import { Modal } from 'antd';
 
 import { useSelector, useDispatch } from 'react-redux';
 import useLanguage from '@/locale/useLanguage';
@@ -20,6 +21,9 @@ import { generate as uniqueId } from 'shortid';
 import { useNavigate } from 'react-router-dom';
 
 import { DOWNLOAD_BASE_URL } from '@/config/serverApiConfig';
+
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutForm from '@/components/Stripe/Checkout';
 
 function AddNewItem({ config }) {
   const navigate = useNavigate();
@@ -38,14 +42,12 @@ function AddNewItem({ config }) {
 
 export default function DataTable({ config, extra = [] }) {
   const translate = useLanguage();
-  let { entity, dataTableColumns, disableAdd = false, disableNewEntity = false } = config;
 
-  const { DATATABLE_TITLE } = config;
+  let { entity, dataTableColumns, disableAdd = false, disableNewEntity = false } = config;
+  const { DATATABLE_TITLE, modalOpen, setModalOpen, stripePromise, clientSecret } = config;
 
   const { result: listResult, isLoading: listIsLoading } = useSelector(selectListItems);
-
   const { pagination, items: dataSource } = listResult;
-
   const { erpContextAction } = useErpContext();
   const { modal } = erpContextAction;
 
@@ -74,7 +76,6 @@ export default function DataTable({ config, extra = [] }) {
     {
       type: 'divider',
     },
-
     {
       label: translate('Delete'),
       key: 'delete',
@@ -96,12 +97,10 @@ export default function DataTable({ config, extra = [] }) {
   const handleDownload = (record) => {
     window.open(`${DOWNLOAD_BASE_URL}${entity}/${entity}-${record._id}.pdf`, '_blank');
   };
-
   const handleDelete = (record) => {
     dispatch(erp.currentAction({ actionType: 'delete', data: record }));
     modal.open();
   };
-
   const handleRecordPayment = (record) => {
     dispatch(erp.currentItem({ data: record }));
     navigate(`/invoice/pay/${record._id}`);
@@ -186,6 +185,18 @@ export default function DataTable({ config, extra = [] }) {
           padding: '20px 0px',
         }}
       ></PageHeader>
+
+      <Modal
+        centered
+        open={modalOpen}
+        onCancel={() => setModalOpen(false)}
+        closable={true}
+        footer={null}
+      >
+        <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <CheckoutForm />
+        </Elements>
+      </Modal>
 
       <Table
         columns={dataTableColumns}

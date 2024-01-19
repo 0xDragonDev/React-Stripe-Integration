@@ -88,7 +88,7 @@ function Sidebar({ collapsible, isMobile = false }) {
     {
       key: 'stripe',
       icon: <CreditCardOutlined />,
-      label: <Link to={'/stripe'}>{translate('stripe')}</Link>,
+      label: <Link to={'/stripe'}>{translate('Stripe')}</Link>,
     },
     {
       key: 'quote',

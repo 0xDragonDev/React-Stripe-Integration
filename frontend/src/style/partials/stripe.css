@@ -1,0 +1,75 @@
+/* form > * {
+  margin: 10px 0;
+} */
+
+button {
+  background-color: var(--accent-color);
+}
+
+.pay-btn {
+  background: #1677ff;
+  border-radius: 3px;
+  color: white;
+  border: 1px solid #4096ff;
+  padding: 12px 16px;
+  margin-top: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: block;
+}
+.pay-btn:hover {
+  filter: contrast(115%);
+  background: #4096ff;
+}
+.pay-btn:active {
+  transform: translateY(0px) scale(0.98);
+  filter: brightness(0.9);
+}
+.pay-btn:disabled {
+  opacity: 0.5;
+  cursor: none;
+}
+
+input,
+select {
+  display: block;
+  font-size: 1.1em;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+}
+
+a {
+  color: var(--accent-color);
+  font-weight: 900;
+}
+
+small {
+  font-size: 0.6em;
+}
+
+fieldset,
+input,
+select {
+  border: 1px solid #efefef;
+}
+
+#payment-form {
+  padding: 20px;
+  margin: 20px 0;
+}
+
+#messages {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
+  display: none; /* hide initially, then show once the first message arrives */
+  background-color: #0a253c;
+  color: #00d924;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: var(--radius);
+  font-size: 0.7em;
+}

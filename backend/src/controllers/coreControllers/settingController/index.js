@@ -5,6 +5,8 @@ const listBySettingKey = require('./listBySettingKey');
 const readBySettingKey = require('./readBySettingKey');
 const updateBySettingKey = require('./updateBySettingKey');
 const updateManySetting = require('./updateManySetting');
+const getStripeSecretKey = require('./getStripeSecretKey');
+const getStripePublishableKey = require('./getStripePublishableKey');
 const listAll = require('./listAll');
 
 const settingMethods = {
@@ -19,6 +21,8 @@ const settingMethods = {
   readBySettingKey,
   updateBySettingKey,
   updateManySetting,
+  getStripeSecretKey,
+  getStripePublishableKey,
 };
 
 module.exports = settingMethods;

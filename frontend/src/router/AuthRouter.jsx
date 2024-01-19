@@ -8,6 +8,7 @@ import ForgetPassword from '@/pages/ForgetPassword';
 import ResetPassword from '@/pages/ResetPassword';
 
 export default function AuthRouter() {
+  console.log('Here3');
   return (
     <Routes>
       <Route element={<Login />} path="/" />

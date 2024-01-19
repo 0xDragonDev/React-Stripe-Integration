@@ -18,6 +18,8 @@ const InvoiceUpdate = lazy(() => import('@/pages/Invoice/InvoiceUpdate'));
 const InvoiceRecordPayment = lazy(() => import('@/pages/Invoice/InvoiceRecordPayment'));
 
 const Stripe = lazy(() => import('@/pages/Stripe'));
+const Checkout = lazy(() => import('@/components/Stripe/Checkout'));
+const Completion = lazy(() => import('@/components/Stripe/Completion'));
 
 const Quote = lazy(() => import('@/pages/Quote/index'));
 const QuoteCreate = lazy(() => import('@/pages/Quote/QuoteCreate'));
@@ -116,6 +118,14 @@ export default function AppRouter() {
     {
       path: '/stripe',
       element: <Stripe />,
+    },
+    {
+      path: '/StripeCheckout',
+      element: <Checkout />,
+    },
+    {
+      path: '/completion',
+      element: <Completion />,
     },
     {
       path: '/quote',

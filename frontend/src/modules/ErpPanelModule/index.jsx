@@ -1,12 +1,9 @@
 import { useLayoutEffect } from 'react';
-
 import DataTable from './DataTable';
-
 import Delete from './DeleteItem';
 
 import { useDispatch } from 'react-redux';
 import { erp } from '@/redux/erp/actions';
-
 import { useErpContext } from '@/context/erp';
 
 export default function ErpPanel({ config, extra }) {
